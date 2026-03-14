@@ -31,9 +31,9 @@ import java.io.*;
 @Service
 public class ConversionService {
 
-    // =========================
-    // WORD → PDF (STABLE VERSION)
-    // =========================
+  
+    // WORD -> PDF 
+  
     public byte[] wordToPdf(MultipartFile file) throws Exception {
 
         if (file == null || file.isEmpty()) {
@@ -113,9 +113,9 @@ public class ConversionService {
     }
 
 
-    // =========================
-    // PDF → WORD
-    // =========================
+   
+    // PDF -> WORD
+
     public byte[] pdfToWord(MultipartFile file) throws Exception {
 
         if (file == null || file.isEmpty()) {
@@ -188,9 +188,9 @@ public class ConversionService {
 
 
 
-    // =========================
-    // PDF → POWERPOINT
-    // =========================
+    
+    // PDF -> POWERPOINT
+ 
     public byte[] pdfToPowerPoint(MultipartFile file) throws Exception {
 
         try (PDDocument pdf = PDDocument.load(file.getInputStream());
@@ -227,9 +227,9 @@ public class ConversionService {
         }
     }
 
-    // =========================
-    // IMAGE → PDF
-    // =========================
+   
+    // IMAGE -> PDF
+
     public byte[] imageToPdf(MultipartFile file) throws Exception {
 
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
@@ -249,9 +249,9 @@ public class ConversionService {
         }
     }
 
-    // =========================
-    // PDF → EXCEL
-    // =========================
+ 
+    // PDF -> EXCEL
+ 
     public byte[] pdfToExcel(MultipartFile file) throws Exception {
 
         try (PDDocument pdf = PDDocument.load(file.getInputStream());
@@ -272,9 +272,9 @@ public class ConversionService {
         }
     }
 
-    // =========================
+   
     // ROTATE PDF
-    // =========================
+
     public byte[] rotatePdf(MultipartFile file, int angle) throws Exception {
 
         if (angle % 90 != 0) {
@@ -293,9 +293,9 @@ public class ConversionService {
         }
     }
 
-    // =========================
+    
     // MERGE PDFs
-    // =========================
+
     public byte[] mergePdfs(MultipartFile[] files) throws Exception {
 
         PDFMergerUtility merger = new PDFMergerUtility();
