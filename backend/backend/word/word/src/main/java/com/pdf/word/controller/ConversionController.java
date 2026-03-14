@@ -17,13 +17,11 @@ public class ConversionController {
     public ConversionController(ConversionService service) {
         this.service = service;
     }
-
-    // ✅ FIXED HERE
     @PostMapping("/word-to-pdf")
     public ResponseEntity<byte[]> convert(
             @RequestParam("file") MultipartFile file) throws Exception {
 
-        byte[] pdf = service.wordToPdf(file);  // ✅ Correct way
+        byte[] pdf = service.wordToPdf(file);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
