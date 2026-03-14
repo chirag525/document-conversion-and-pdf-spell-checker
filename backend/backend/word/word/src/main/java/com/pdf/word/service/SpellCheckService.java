@@ -16,7 +16,7 @@ import java.util.*;
 public class SpellCheckService {
 
     private final JLanguageTool languageTool;
-    private final NerService nerService;   // ✅ Inject NER
+    private final NerService nerService;   // Inject NER
 
     public SpellCheckResponse checkSpelling(String text, String fileName) {
 
@@ -26,7 +26,7 @@ public class SpellCheckService {
 
         try {
 
-            // ✅ Extract Named Entities (Persons, Orgs, Locations)
+            // Extract Named Entities 
             Set<String> namedEntities = nerService.extractNamedEntities(text);
 
             List<RuleMatch> matches = languageTool.check(text);
@@ -37,7 +37,7 @@ public class SpellCheckService {
 
                 String ruleId = match.getRule().getId();
 
-                // ✅ Only process spelling-related rules
+                //  Only process spelling-related rules
                 if (!(ruleId.contains("SPELL")
                         || ruleId.contains("MORFOLOGIK")
                         || ruleId.contains("HUNSPELL"))) {
@@ -55,24 +55,24 @@ public class SpellCheckService {
 
                 if (incorrectWord.isBlank()) continue;
 
-                // ✅ Skip named entities (Chirag, Google, Mangalore etc.)
+                // Skip named entities 
                 if (namedEntities.contains(incorrectWord)) continue;
 
-                // ✅ Skip ALL CAPS words (PDF, API, REST etc.)
+                // Skip ALL CAPS words (PDF, API, REST etc.)
                 if (incorrectWord.equals(incorrectWord.toUpperCase())
                         && incorrectWord.length() > 2) continue;
 
-                // ✅ Skip invalid tokens (numbers, symbols)
+                // Skip invalid tokens (numbers, symbols)
                 if (!incorrectWord.matches("^[a-zA-Z-]+$")) continue;
 
-                // ✅ Skip if no suggestions
+                // Skip if no suggestions
                 if (match.getSuggestedReplacements() == null
                         || match.getSuggestedReplacements().isEmpty()) continue;
 
                 int lineNumber = LineNumberUtil.getLineNumber(text, start);
                 String uniqueKey = incorrectWord.toLowerCase() + "_" + lineNumber;
 
-                // ✅ Avoid duplicate errors
+                // Avoid duplicate errors
                 if (!uniqueErrors.add(uniqueKey)) continue;
 
                 errors.add(new SpellError(
